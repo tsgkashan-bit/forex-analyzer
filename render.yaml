@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: forex-analyzer
+    env: docker
+    plan: free
