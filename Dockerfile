@@ -10,7 +10,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 RUN cp .env.example .env || true
 
@@ -19,6 +19,9 @@ RUN php artisan key:generate --force || true
 RUN mkdir -p database && touch database/database.sqlite
 
 RUN php artisan migrate --force || true
+
+RUN php artisan config:cache || true
+RUN php artisan route:cache || true
 
 EXPOSE 10000
 
