@@ -18,7 +18,7 @@ final class TwelveDataProvider implements MarketDataProvider
             'outputsize' => min(max($limit, 50), 5000),
             'order' => 'ASC',
             'timezone' => 'UTC',
-            'apikey' => env('TWELVE_DATA_API_KEY'),
+            'apikey' => config('trading.providers.twelve_data.key'),
         ])->throw()->json();
 
 if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
