@@ -18,7 +18,7 @@ final class TwelveDataProvider implements MarketDataProvider
             'outputsize' => min(max($limit, 50), 5000),
             'order' => 'ASC',
             'timezone' => 'UTC',
-            'apikey' => config('trading.providers.twelve_data.key'),
+            'apikey' => env('TWELVE_DATA_API_KEY'),
         ])->throw()->json();
 
 if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
@@ -33,7 +33,7 @@ if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
 
     public function supports(string $symbol): bool
     {
-        return filled(config('trading.providers.twelve_data.key'));
+        return true;
     }
 
     public function name(): string
