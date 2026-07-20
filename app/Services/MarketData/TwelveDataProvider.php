@@ -18,11 +18,11 @@ final class TwelveDataProvider implements MarketDataProvider
             'outputsize' => min(max($limit, 50), 5000),
             'order' => 'ASC',
             'timezone' => 'UTC',
-            'apikey' => config('trading.providers.twelve_data.key'),
+            'apikey' => config('trading.providers.twelve_data.key'),    
         ])->throw()->json();
 
 if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
-    throw new RuntimeException(json_encode($response, JSON_PRETTY_PRINT));
+    throw new RuntimeException($response['message'] ?? 'No market candles returned.');
 }
 
         return array_map(
