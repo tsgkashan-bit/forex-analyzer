@@ -21,9 +21,9 @@ final class TwelveDataProvider implements MarketDataProvider
             'apikey' => config('trading.providers.twelve_data.key'),
         ])->throw()->json();
 
-        if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
-            throw new RuntimeException($response['message'] ?? 'No market candles returned.');
-        }
+if (($response['status'] ?? null) === 'error' || empty($response['values'])) {
+    throw new RuntimeException(json_encode($response, JSON_PRETTY_PRINT));
+}
 
         return array_map(
             static fn (array $row): Candle => Candle::fromArray($row),
